@@ -51,6 +51,15 @@ namespace Rose.Areas.Identity.Pages.Account
             [Display(Name = "Username")]
             public string Username { get; set; }
             [Required]
+            [Display(Name = "FirstName")]
+            public string FirstName { get; set; }
+            [Required]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
+            [Required]
+            [Display(Name = "PhoneNumber")]
+            public string PhoneNumber { get; set; }
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -77,7 +86,7 @@ namespace Rose.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email,FirstName=Input.FirstName, LastName=Input.LastName, PhoneNumber=Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

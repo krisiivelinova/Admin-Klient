@@ -46,6 +46,15 @@ namespace Rose.Areas.Identity.Pages.Account
             [Required]
             
             public string Username { get; set; }
+            [Required]
+
+            public string FirstName { get; set; }
+            [Required]
+
+            public string LastName { get; set; }
+            [Required]
+
+            public string PhoneNumber { get; set; }
 
             [Required]
             [DataType(DataType.Password)]

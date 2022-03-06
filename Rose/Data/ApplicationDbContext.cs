@@ -4,6 +4,7 @@ using Rose.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Rose.Models;
 
 namespace Rose.Data
 {
@@ -14,5 +15,6 @@ namespace Rose.Data
         {
             this.Database.EnsureCreated();
         }
+        public DbSet<Rose.Models.ClientBindingAllViewModel> ClientBindingAllViewModel { get; set; }
     }
 }

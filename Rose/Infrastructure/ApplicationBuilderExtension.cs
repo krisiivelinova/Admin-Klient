@@ -51,6 +51,9 @@ namespace Rose.Infrastructure
                 ApplicationUser user = new ApplicationUser();
                 user.UserName = "admin";
                 user.Email = "admin@admin.com";
+                user.FirstName = "Krisi";
+                user.LastName = "Velinova";
+                user.PhoneNumber = "0893948756";
 
                 var result = await userManager.CreateAsync
                 (user, "123!@#qweQWE");
