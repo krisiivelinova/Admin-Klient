@@ -56,7 +56,7 @@ namespace Rose.Infrastructure
                 user.PhoneNumber = "0893948756";
 
                 var result = await userManager.CreateAsync
-                (user, "123!@#qweQWE");
+                (user, "123456");
 
                 if (result.Succeeded)
                 {
