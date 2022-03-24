@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rose.Abstractions;
 using Rose.Data;
 using Rose.Entities;
 using Rose.Infrastructure;
+using Rose.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +32,8 @@ namespace Rose
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                
+            options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,6 +43,8 @@ namespace Rose
                 .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
+            services.AddTransient<ICategoryService, CategoryService>();
+            
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
