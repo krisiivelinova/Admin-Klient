@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Rose.Entities
+{
+    public class Order
+    {
+        public int Id { get; set; }
+        [MinLength(10)]
+        [MaxLength(50)]
+
+        public DateTime OrderDate { get; set; }
+        public int Quantity { get; set; }
+        [Required]
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
+
+        public int FlowerId { get; set; }
+        public virtual Flower Flower { get; set; }
+
+
+
+
+    }
+}

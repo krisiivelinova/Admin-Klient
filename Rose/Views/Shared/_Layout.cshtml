@@ -8,12 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
-    {
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="AllClients">Clients</a>
-        </li>
-    }
+   
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -31,7 +26,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="AllClients">Client</a>
+                            </li>
+                        }
                     </ul>
+                    
                     <partial name="_LoginPartial" />
                 </div>
             </div>

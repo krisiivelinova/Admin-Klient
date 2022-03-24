@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Rose.Data;
 using Rose.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,24 @@ namespace Rose.Infrastructure
             await RoleSeeder(services);
             await SeedAdministrator(services);
 
+            var data = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            SeedCategories(data);
 
             return app;
+        }
+
+        private static void SeedCategories(ApplicationDbContext data)
+        {
+            if (data.Categories.Any())
+            {
+                return;
+            }
+            data.Categories.AddRange(new[]
+            {
+                new Category {Name="Bouquet"},
+                new Category {Name="Flower"}
+            });
+            data.SaveChanges();
         }
 
         private static async Task RoleSeeder(IServiceProvider serviceProvider)

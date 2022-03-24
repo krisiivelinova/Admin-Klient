@@ -56,12 +56,12 @@ namespace Rose.Areas.Identity.Pages.Account
 
            // public string PhoneNumber { get; set; }
 
-            //[Required]
+            [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-           // [Display(Name = "Remember me?")]
-           // public bool RememberMe { get; set; }
+           [Display(Name = "Remember me?")]
+           public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
