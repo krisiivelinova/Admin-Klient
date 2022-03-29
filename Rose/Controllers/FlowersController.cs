@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Rose.Abstractions;
 using Rose.Data;
 using Rose.Entities;
 
@@ -15,11 +16,19 @@ namespace Rose.Controllers
     public class FlowersController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public FlowersController(ApplicationDbContext context)
+        private readonly IFlowerService _flowerService;
+        private readonly ICategoryService _categoryService;
+        private readonly IWebHostEnviroment _hotEnviroment;
+        
+        public FlowersController(IFlowerService flowerService, ICategoryService categoryService, IWebHostEnviroment host)
         {
-            _context = context;
+            this._flowerService = flowerService;
+            this._categoryService = categoryService;
+            this._hotEnviroment = hostEnviroment;
         }
+        //{
+        //    _context = context;
+    }
 
         [AllowAnonymous]
         // GET: Flowers
@@ -49,6 +58,7 @@ namespace Rose.Controllers
         }
 
         // GET: Flowers/Create
+
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -60,17 +70,32 @@ namespace Rose.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
+    //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
+    public async Task<IActionResult> Create([FromForm FlowerCreateVM input)
+    {
+        var imagePath = $"{this._hostEnviroment.WebRootPath}";
+        //if (ModelState.IsValid)
+        //{
+        //    _context.Add(flower);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", flower.CategoryId);
+        //return View(flower);
+        if (!ModelState.IsValid)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(flower);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", flower.CategoryId);
-            return View(flower);
+            input.Categories = _categoryService.GetCategories()
+                .Select(char => new CategoryPairVM()
+                {
+                    Id = c.Id,
+                    Name = char.Name
+                })
+                .ToList();
+            return View(input);
         }
+        await this._flowerService.Create(input, imagePath);
+        return RedirectToAction(nameof(Index));
+    }
 
         // GET: Flowers/Edit/5
         public async Task<IActionResult> Edit(int? id)

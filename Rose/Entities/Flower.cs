@@ -11,7 +11,6 @@ namespace Rose.Entities
         public int Id { get; set; }
 
         [Required]
-        //[Display(Name = "Name")]
         [MaxLength(30)]
         public string Name { get; set; }
 
@@ -24,13 +23,14 @@ namespace Rose.Entities
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        public string Picture { get; set; }
+        public string ImageId { get; set; }
+        public virtual Image Image { get; set; }
 
         [Required]
-        [Range(1, 50)]
+        [Range(1, 100)]
         public decimal Price { get; set; }
         [Required]
-        [MaxLength(30)]
+        [MaxLength(50)]
         public int Quantity { get; set; }
 
         public virtual IEnumerable<Order> Orders { get; set; }

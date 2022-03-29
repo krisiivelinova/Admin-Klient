@@ -10,7 +10,7 @@ namespace Rose.Models.Category
     {
         public int Id { get; set; }
 
-        [Display(Name="Breed")]
+        [Display(Name="Category")]
         public string Name { get; set; }
     }
 }
