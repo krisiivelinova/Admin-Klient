@@ -26,12 +26,34 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flowers" asp-action="Index">Flowers</a>
+                        </li>
+
+
+
+
+                    
+                        @*@if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="AllClients">Client</a>
+                            <li class="nav-item active">
+                                <div class="dropdown show">
+                                    <a class="nav-link active dropdown-toggle" href="#"
+                                       id="dropdownMenuLink"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Flowers
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dwopdownMenuLink">
+                                        <a class="dropdown-item" href="/Offers/Index">All</a>
+                                        <a class="dropdown-item" href="/Offers/Index">Add</a>
+                                    </div>
+                                </div>
                             </li>
-                        }
+                        }*@
+
+
                     </ul>
                     
                     <partial name="_LoginPartial" />
@@ -54,5 +76,24 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @*@if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+            { 
+    <li class="nav-item active">
+    <div class="dropdown show">
+        <a class="nav-link active dropdown-toggle" href="#"
+           id="dropdownMenuLink"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false">
+            Flowers
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dwopdownMenuLink">
+            <a class="dropdown-item" href="/Offers/Index">All</a>
+            <a class="dropdown-item" href="/Offers/Index">Add</a>
+        </div>
+    </div>
+    </li>
+         }*@
 </body>
 </html>

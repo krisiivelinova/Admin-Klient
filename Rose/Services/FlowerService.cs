@@ -37,5 +37,30 @@ namespace Rose.Services
 
             return _context.SaveChanges() != 0;
         }
+
+        public Flower GetFlowerById(int flowerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Flower> GetFlowers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Flower> GetFlowers(string searchstringCategory, string searchStringName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveById(int dogId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateFlower(int flowerId, string name, decimal price, int categoryId, string picture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

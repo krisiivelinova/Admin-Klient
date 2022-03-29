@@ -18,7 +18,7 @@ namespace Rose.Entities
         [Required]
         
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         [Required]
         [Display(Name = "Description")]
@@ -32,6 +32,10 @@ namespace Rose.Entities
         [Required]
         [MaxLength(30)]
         public int Quantity { get; set; }
-        
+
+        public virtual IEnumerable<Order> Orders { get; set; }
+
+
+
     }
 }
