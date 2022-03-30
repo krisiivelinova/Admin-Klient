@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Rose.Abstractions;
 using Rose.Data;
 using Rose.Entities;
+using Rose.Models.Flower;
 
 namespace Rose.Controllers
 {
@@ -18,17 +19,17 @@ namespace Rose.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IFlowerService _flowerService;
         private readonly ICategoryService _categoryService;
-        private readonly IWebHostEnviroment _hotEnviroment;
-        
-        public FlowersController(IFlowerService flowerService, ICategoryService categoryService, IWebHostEnviroment host)
+        private readonly IWebHostEnviroment _hostEnviroment;
+
+        public FlowersController(IFlowerService flowerService, ICategoryService categoryService, ApplicationDbContext _context, IWebHostEnviroment hostEnviroment)
         {
             this._flowerService = flowerService;
             this._categoryService = categoryService;
-            this._hotEnviroment = hostEnviroment;
+            this._hostEnviroment = hostEnviroment;
+            this._context = _context;
         }
-        //{
-        //    _context = context;
-    }
+             
+    
 
         [AllowAnonymous]
         // GET: Flowers
@@ -65,13 +66,15 @@ namespace Rose.Controllers
             return View();
         }
 
+
         // POST: Flowers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
         [HttpPost]
         [ValidateAntiForgeryToken]
-    //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
-    public async Task<IActionResult> Create([FromForm FlowerCreateVM input)
+        public async Task<IActionResult> Create([FromForm] FlowerCreateVM input)
     {
         var imagePath = $"{this._hostEnviroment.WebRootPath}";
         //if (ModelState.IsValid)
