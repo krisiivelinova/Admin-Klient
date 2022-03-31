@@ -42,9 +42,10 @@ namespace Rose
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews();
             services.AddTransient<ICategoryService, CategoryService>();
-            
+            services.AddTransient<IFlowerService, FlowerService>();
+
+
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>

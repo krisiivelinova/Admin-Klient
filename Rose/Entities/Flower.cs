@@ -23,8 +23,9 @@ namespace Rose.Entities
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        public string ImageId { get; set; }
-        public virtual Image Image { get; set; }
+        
+
+        public string Picture { get; set; }
 
         [Required]
         [Range(1, 100)]

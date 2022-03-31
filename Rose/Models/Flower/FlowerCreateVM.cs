@@ -12,20 +12,21 @@ namespace Rose.Models.Flower
     {
         public FlowerCreateVM()
         {
-            Category = new List<CategoryPairVM>();
+            Categories = new List<CategoryPairVM>();
         }
         [Key]
         public int Id { get; set; }
         [MinLength(3)]
         [Required]
         public string Name { get; set; }
+        public string Picture { get; set; }
+        public string Description { get; set; }
         [Required]
         [Range(1, 100)]
         public decimal Price { get; set; }
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
-        [Required]
-        public IFormFile Image { get; set; }
-        public virtual List<CategoryPairVM> Category { get; set; }
+        
+        public virtual List<CategoryPairVM> Categories { get; set; }
     }
 }

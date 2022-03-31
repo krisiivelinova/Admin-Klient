@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Rose.Models;
+using Rose.Models.Flower;
 
 namespace Rose.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Flower> Flowers { get; set; }
-        public DbSet<Image> Images { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
 
@@ -21,5 +21,6 @@ namespace Rose.Data
             this.Database.EnsureCreated();
         }
         public DbSet<Rose.Models.ClientBindingAllViewModel> ClientBindingAllViewModel { get; set; }
+        public DbSet<Rose.Models.Flower.FlowerCreateVM> FlowerCreateVM { get; set; }
     }
 }

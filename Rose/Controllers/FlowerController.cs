@@ -2,44 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rose.Abstractions;
 using Rose.Data;
 using Rose.Entities;
+using Rose.Models.Category;
 using Rose.Models.Flower;
 
 namespace Rose.Controllers
 {
-    [Authorize]
-    public class FlowersController : Controller
+    public class FlowerController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IFlowerService _flowerService;
         private readonly ICategoryService _categoryService;
-        private readonly IWebHostEnviroment _hostEnviroment;
+        private readonly ApplicationDbContext _context;
 
-        public FlowersController(IFlowerService flowerService, ICategoryService categoryService, ApplicationDbContext _context, IWebHostEnviroment hostEnviroment)
+        public FlowerController(IFlowerService flowerService, ICategoryService categoryService,ApplicationDbContext context)
         {
             this._flowerService = flowerService;
             this._categoryService = categoryService;
-            this._hostEnviroment = hostEnviroment;
-            this._context = _context;
+            _context = context;
         }
-             
-    
 
-        [AllowAnonymous]
-        // GET: Flowers
+        // GET: Flower
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Flowers.Include(f => f.Category);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Flowers/Details/5
+        // GET: Flower/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,49 +52,58 @@ namespace Rose.Controllers
             return View(flower);
         }
 
-        // GET: Flowers/Create
-
+        // GET: Flower/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            return View();
-        }
+            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            //return View();
 
-
-        // POST: Flowers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] FlowerCreateVM input)
-    {
-        var imagePath = $"{this._hostEnviroment.WebRootPath}";
-        //if (ModelState.IsValid)
-        //{
-        //    _context.Add(flower);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-        //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", flower.CategoryId);
-        //return View(flower);
-        if (!ModelState.IsValid)
-        {
-            input.Categories = _categoryService.GetCategories()
-                .Select(char => new CategoryPairVM()
+            var flower = new FlowerCreateVM();
+            flower.Categories = _categoryService.GetCategories()
+                .Select(c => new CategoryPairVM
                 {
                     Id = c.Id,
-                    Name = char.Name
+                    Name = c.Name
+
                 })
                 .ToList();
-            return View(input);
+            return View(flower);
         }
-        await this._flowerService.Create(input, imagePath);
-        return RedirectToAction(nameof(Index));
-    }
+
+        // POST: Flower/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Picture,Price,Quantity")] Flower flower)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(flower);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", flower.CategoryId);
+        //    return View(flower);
+        //}
+
 
         // GET: Flowers/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([FromForm] FlowerCreateVM flower)
+        {
+            if (ModelState.IsValid)
+            {
+                var createdId = _flowerService.Create(flower.Name, flower.Price, flower.Description, flower.CategoryId, flower.Picture);
+                if (createdId)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View();
+        }
+        // GET: Flower/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,7 +120,7 @@ namespace Rose.Controllers
             return View(flower);
         }
 
-        // POST: Flowers/Edit/5
+        // POST: Flower/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -153,7 +156,7 @@ namespace Rose.Controllers
             return View(flower);
         }
 
-        // GET: Flowers/Delete/5
+        // GET: Flower/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,7 +175,7 @@ namespace Rose.Controllers
             return View(flower);
         }
 
-        // POST: Flowers/Delete/5
+        // POST: Flower/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
