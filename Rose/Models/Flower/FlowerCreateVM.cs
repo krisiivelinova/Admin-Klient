@@ -24,6 +24,11 @@ namespace Rose.Models.Flower
         [Required]
         [Range(1, 100)]
         public decimal Price { get; set; }
+
+        [Required]
+        [Range(1, 100)]
+        public int Quantity { get; set; }
+
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
         

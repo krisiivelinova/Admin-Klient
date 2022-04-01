@@ -19,13 +19,14 @@ namespace Rose.Services
             _context = context;
         }
 
-        public bool Create(string name, decimal price, string description, int categoryId, string picture)
+        public bool Create(string name, decimal price, string description, int quantity, int categoryId, string picture)
         {
             var flower = new Flower
             {
                 Name = name,
                 Price = price,
                 Description = description,
+                Quantity = quantity,
                 Category = _context.Categories.Find(categoryId),
                 Picture = picture,
             };
@@ -54,7 +55,7 @@ namespace Rose.Services
             throw new NotImplementedException();
         }
 
-        public bool UpdateFlower(int flowerId, string name, decimal price, int categoryId, string picture)
+        public bool UpdateFlower(int flowerId, string name, decimal price, int quantity, int categoryId, string picture)
         {
             throw new NotImplementedException();
         }

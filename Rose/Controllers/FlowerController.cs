@@ -33,6 +33,8 @@ namespace Rose.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        
+
         // GET: Flower/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -95,7 +97,7 @@ namespace Rose.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createdId = _flowerService.Create(flower.Name, flower.Price, flower.Description, flower.CategoryId, flower.Picture);
+                var createdId = _flowerService.Create(flower.Name, flower.Price, flower.Description, flower.Quantity, flower.CategoryId, flower.Picture);
                 if (createdId)
                 {
                     return RedirectToAction(nameof(Index));

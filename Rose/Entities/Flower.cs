@@ -31,10 +31,11 @@ namespace Rose.Entities
         [Range(1, 100)]
         public decimal Price { get; set; }
         [Required]
-        [MaxLength(50)]
+        [Range(1, 100)]
         public int Quantity { get; set; }
 
         public virtual IEnumerable<Order> Orders { get; set; }
+        = new List<Order>();
 
 
 
