@@ -23,6 +23,5 @@ namespace Rose.Entities
 
         public int FlowerId { get; set; }
         public virtual Flower Flower { get; set; }
-        //promqna
     }
 }
