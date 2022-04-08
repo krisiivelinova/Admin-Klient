@@ -2,7 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+<div style="position: relative">
+    <img src="~/Images/flowerstore2.jpg" class="img-fluid rounded" 
+         width="2000px"
+         height="600px"
+         />
+    <div class="flowerstore2">
+        <h5 class="some-paragraph" style="color: white; margin-bottom: 15px">Welcome to out flowers store:</h5>
+        <a asp-controller="Flowers" class="some-paragraph btn btn-outline-light">Flowers</a>
+    </div>
 </div>
+
+<div class="text-center mt-3">
+    <h3>Our best sellers</h3>
+
+    <div class="col-3 d-inline-block">
+        <img src="~/Images/rosebouquet.jpg" width="200" height="200" class="img-fluid" />
+        <p class="font-weight-bolder">Pink Roses Bouquet</p>
+    </div>
+    <div class="col-3 d-inline-block">
+        <img src="~/Images/bouquetmix.jpg" width="200" height="200" class="img-fluid" />
+        <p class="font-weight-bolder">Bouquet Mix</p>
+    </div>
+    <div class="col-3 d-inline-block">
+        <img src="~/Images/redbouquet1.jpg" width="200" height="200" class="img-fluid" />
+        <p class="font-weight-bolder">Red Roses Bouquet</p>
+    </div>

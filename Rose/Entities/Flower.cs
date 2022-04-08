@@ -23,8 +23,6 @@ namespace Rose.Entities
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        
-
         public string Picture { get; set; }
 
         [Required]
