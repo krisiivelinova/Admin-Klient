@@ -1,25 +1,31 @@
-﻿using System;
+﻿using Rose.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rose.Entities
+namespace Rose.Models.Order
 {
-    public class Order
+    public class OrderCreateViewModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
+        public string FlowerId { get; set; }
+        [Required]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Quantity")]
+        public int Quantity { get; set; }
+        
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public int FlowerId { get; set; }
-        public virtual Flower Flower { get; set; }
+      
         [MinLength(10)]
         [MaxLength(50)]
         public DateTime OrderDate { get; set; }
-        public int Quantity { get; set; }
         
-  
+
     }
 }

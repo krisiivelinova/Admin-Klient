@@ -60,6 +60,7 @@
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
+                    <a asp-action="Create" asp-controller="Orders" asp-route-id="@item.Id">Order</a>
                     @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
                     {
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
@@ -74,5 +75,7 @@
                 </td>
             </tr>
         }
+    </tbody>
+
     </tbody>
 </table>
