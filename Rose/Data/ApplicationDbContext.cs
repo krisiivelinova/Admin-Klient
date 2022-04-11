@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Rose.Models;
 using Rose.Models.Flower;
+using Rose.Models.Order;
 
 namespace Rose.Data
 {
@@ -22,5 +23,6 @@ namespace Rose.Data
         }
         public DbSet<Rose.Models.ClientBindingAllViewModel> ClientBindingAllViewModel { get; set; }
         public DbSet<Rose.Models.Flower.FlowerCreateVM> FlowerCreateVM { get; set; }
+        public DbSet<Rose.Models.Order.OrderCreateViewModel> OrderCreateViewModel { get; set; }
     }
 }
