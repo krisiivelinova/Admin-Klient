@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Rose.Entities.Flower>
+﻿@model IEnumerable<OrderListingViewModel>
 
 @{
     ViewData["Title"] = "AllOrders";
@@ -17,19 +17,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Picture)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.FlowerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -42,20 +30,9 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.FlowerName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Picture)" alt="Image" width="100px" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>

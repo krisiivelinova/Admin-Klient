@@ -61,7 +61,7 @@ namespace Rose.Controllers
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
-                return this.RedirectToAction("All", "Flowers");
+                return this.RedirectToAction("AllOrders", "Order");
             }
             return View();
         }
@@ -93,7 +93,7 @@ namespace Rose.Controllers
                      Quantity = x.Quantity,
                      UserId = x.UserId,
                      OrderDate = x.OrderDate.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
-               
+               FlowerName = x.Flower.Name
 
                  }).ToList();
 

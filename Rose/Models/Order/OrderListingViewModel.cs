@@ -18,6 +18,7 @@ namespace Rose.Models.Order
         [Range(1, int.MaxValue)]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
+        public string FlowerName { get; set; }
 
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
