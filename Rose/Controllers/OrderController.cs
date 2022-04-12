@@ -91,7 +91,7 @@ namespace Rose.Controllers
                      Id = x.Id,
                      FlowerId = x.FlowerId,
                      Quantity = x.Quantity,
-                     UserId = x.UserId,
+                     UserName = x.User.UserName,
                      OrderDate = x.OrderDate.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
                FlowerName = x.Flower.Name
 

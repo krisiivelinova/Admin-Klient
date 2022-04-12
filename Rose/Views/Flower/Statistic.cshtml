@@ -1,0 +1,51 @@
+﻿@model Rose.Models.Flower.StatisticVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.flowerCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bouqetCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderCount)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+            <tr>
+                <td>
+                    @Model.flowerCount
+                   
+                </td>
+                <td>
+                    @Model.bouqetCount
+                </td>
+                <td>
+                    @Model.userCount
+                </td>
+                <td>
+                    @Model.orderCount
+                </td>
+                
+            </tr>
+       
+    </tbody>
+
+   
+</table>

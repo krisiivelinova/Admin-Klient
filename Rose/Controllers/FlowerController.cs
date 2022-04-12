@@ -29,11 +29,25 @@ namespace Rose.Controllers
         // GET: Flower
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Flowers.Include(f => f.Category);
+            var applicationDbContext = _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower");
             return View(await applicationDbContext.ToListAsync());
         }
+        public async Task<IActionResult> Bouquet()
+        {
+            var applicationDbContext = _context.Flowers.Include(f => f.Category).Where(f=>f.Category.Name=="Bouquet");
+            return View(await applicationDbContext.ToListAsync());
+        }
+        public IActionResult Statistic()
+        {
+            var statistic = new StatisticVM();
+            statistic.flowerCount= _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower").Count();
+            statistic.bouqetCount=_context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Bouquet").Count();
+           
+            // var applicationDbContext = _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower");
+            return View(statistic);
+        }
 
-        
+
 
         // GET: Flower/Details/5
         public async Task<IActionResult> Details(int? id)
