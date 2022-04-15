@@ -18,8 +18,11 @@ namespace Rose.Entities
         [MinLength(10)]
         [MaxLength(50)]
         public DateTime OrderDate { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
-        
-  
+
+        public decimal TotalPrice { get { return Price * Quantity; } }
+
+
     }
 }

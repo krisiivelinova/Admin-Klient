@@ -44,6 +44,9 @@ namespace Rose.Controllers
         [HttpPost]
         public IActionResult Create(OrderCreateViewModel bindingModel)
         {
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = this._context.Users.SingleOrDefault(u => u.Id == userId);
+            var ev = this._context.Flowers.SingleOrDefault(e => e.Id == bindingModel.FlowerId);
             if (ModelState.IsValid)
             {
                 var item = _context.Flowers.Find(bindingModel.FlowerId);
@@ -53,12 +56,15 @@ namespace Rose.Controllers
                 }
                 Order order = new Order
                 {
-                    UserId = bindingModel.UserId,
+                    UserId = userId,
                     FlowerId = bindingModel.FlowerId,
                    // OrderDate = bindingModel.OrderDate,
-                    Quantity = bindingModel.Quantity
+                    Quantity = bindingModel.Quantity,
+                    Price=ev.Price,
+
                    
                 };
+
                 _context.Orders.Add(order);
                 _context.SaveChanges();
                 return this.RedirectToAction("AllOrders", "Order");
@@ -81,8 +87,8 @@ namespace Rose.Controllers
         //public DateTime OrderDate { get; set; }
         public IActionResult AllOrders()
         {
-            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            //string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var user = _context.Users.SingleOrDefault(u => u.Id == userId);
 
             List<OrderListingViewModel> orders = _context
                  .Orders
@@ -91,6 +97,7 @@ namespace Rose.Controllers
                      Id = x.Id,
                      FlowerId = x.FlowerId,
                      Quantity = x.Quantity,
+                     UserId=x.UserId,
                      UserName = x.User.UserName,
                      OrderDate = x.OrderDate.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
                FlowerName = x.Flower.Name
