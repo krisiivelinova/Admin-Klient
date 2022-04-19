@@ -14,12 +14,15 @@ namespace Rose.Entities
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public int FlowerId { get; set; }
+        //public string FlowerName { get; set; }
         public virtual Flower Flower { get; set; }
+
+       
         [MinLength(10)]
         [MaxLength(50)]
         public DateTime OrderDate { get; set; }
-        public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public decimal Price { get; set; }
 
         public decimal TotalPrice { get { return Price * Quantity; } }
 

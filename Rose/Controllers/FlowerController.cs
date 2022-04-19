@@ -40,8 +40,10 @@ namespace Rose.Controllers
         public IActionResult Statistic()
         {
             var statistic = new StatisticVM();
+            statistic.userCount = _context.Users.Count();
             statistic.flowerCount= _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower").Count();
             statistic.bouqetCount=_context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Bouquet").Count();
+            statistic.orderCount = _context.Orders.Count();
            
             // var applicationDbContext = _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower");
             return View(statistic);
@@ -126,7 +128,7 @@ namespace Rose.Controllers
             {
                 return NotFound();
             }
-
+           
             var flower = await _context.Flowers.FindAsync(id);
             if (flower == null)
             {

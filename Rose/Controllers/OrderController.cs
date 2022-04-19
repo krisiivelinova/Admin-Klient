@@ -50,45 +50,50 @@ namespace Rose.Controllers
             if (ModelState.IsValid)
             {
                 var item = _context.Flowers.Find(bindingModel.FlowerId);
-                if (item == null)
-                {
-                    return this.RedirectToAction("Create");
+                //if (item == null)
+                //{
+
+                    if (user == null || ev == null || ev.Quantity < bindingModel.Quantity)
+                    {
+
+                        return this.RedirectToAction("Create");
                 }
                 Order order = new Order
                 {
                     UserId = userId,
                     FlowerId = bindingModel.FlowerId,
-                   // OrderDate = bindingModel.OrderDate,
+                    OrderDate = DateTime.UtcNow,
                     Quantity = bindingModel.Quantity,
-                    Price=ev.Price,
-
+                   Price=ev.Price,
+                 
                    
                 };
 
+                ev.Quantity -= bindingModel.Quantity;
+                _context.Flowers.Update(ev);
                 _context.Orders.Add(order);
                 _context.SaveChanges();
-                return this.RedirectToAction("AllOrders", "Order");
+
+                var categoryName = ev.Category.Name;
+
+                if (categoryName == "Flower")
+                {
+                    return this.RedirectToAction("Index", "Flower");
+                }
+                else
+                     if (categoryName == "Bouquet")
+                {
+                    return this.RedirectToAction("Bouquet", "Flower");
+                }
+
             }
             return View();
         }
-        //public int Id { get; set; }
-        //[Required]
-        //public int FlowerId { get; set; }
-        //[Required]
-        //[Range(1, int.MaxValue)]
-        //[Display(Name = "Quantity")]
-        //public int Quantity { get; set; }
-
-        //public string UserId { get; set; }
-        //public virtual ApplicationUser User { get; set; }
-
-        //[MinLength(10)]
-        //[MaxLength(50)]
-        //public DateTime OrderDate { get; set; }
+       
         public IActionResult AllOrders()
         {
-            //string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
 
             List<OrderListingViewModel> orders = _context
                  .Orders
@@ -100,7 +105,10 @@ namespace Rose.Controllers
                      UserId=x.UserId,
                      UserName = x.User.UserName,
                      OrderDate = x.OrderDate.ToString("dd-mm-yyyy hh:mm", CultureInfo.InvariantCulture),
-               FlowerName = x.Flower.Name
+               FlowerName = x.Flower.Name,
+               
+               TotalPrice=x.TotalPrice,
+               Price=x.Price,
 
                  }).ToList();
 

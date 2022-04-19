@@ -14,20 +14,21 @@ namespace Rose.Models.Order
         public int Id { get; set; }
         [Required]
         public int FlowerId { get; set; }
-        public int FlowerName { get; set; }
+        //[Required]
+        //public string FlowerName { get; set; }
         [Required]
         [Range(1, int.MaxValue)]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        public int FlowerCount { get; set; }
 
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-      
-        //[MinLength(10)]
-        //[MaxLength(50)]
-        //public DateTime OrderDate { get; set; }
-        
+
+        [MinLength(10)]
+        [MaxLength(50)]
+        public DateTime OrderDate { get; set; }
+
 
     }
 }

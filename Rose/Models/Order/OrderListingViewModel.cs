@@ -19,6 +19,7 @@ namespace Rose.Models.Order
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
         public string FlowerName { get; set; }
+        
 
         public string UserId { get; set; }
         public string UserName { get; set; }
@@ -27,6 +28,9 @@ namespace Rose.Models.Order
         [MinLength(10)]
         [MaxLength(50)]
         public string OrderDate { get; set; }
+
+        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
 
     }
 }
