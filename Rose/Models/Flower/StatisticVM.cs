@@ -11,5 +11,6 @@ namespace Rose.Models.Flower
         public int bouqetCount { get; set; }
         public int userCount { get; set; }
         public int orderCount { get; set; }
+        public decimal totalPrice { get; set; }
     }
 }

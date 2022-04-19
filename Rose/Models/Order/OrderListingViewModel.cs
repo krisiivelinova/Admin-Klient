@@ -25,8 +25,8 @@ namespace Rose.Models.Order
         public string UserName { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        [MinLength(10)]
-        [MaxLength(50)]
+        //[MinLength(10)]
+        //[MaxLength(50)]
         public string OrderDate { get; set; }
 
         public decimal Price { get; set; }

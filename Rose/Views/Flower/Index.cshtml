@@ -17,11 +17,11 @@
                 <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
             </svg>
         </h3>
-       
+
 
     </div>
 </header>
-<h1>Flowers</h1>
+<h1>Index</h1>
 
 @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
 {
@@ -57,41 +57,51 @@
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        <img src="@Html.DisplayFor(modelItem => item.Picture)" alt="Image" width="100px" />
-        @*@Html.DisplayFor(modelItem => item.Picture)*@
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Quantity)
-    </td>
-    <td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Picture)" alt="Image" width="100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+        <td>
 
-        <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
-    </td>
-    @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
-    {
-<td>
+            <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+        </td>}
+            <td>
+                @*@if (this.User.Identity.IsAuthenticated)
+                {
+            <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+                }*@
 
-    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-</td>}
-    @if (this.User.Identity.IsAuthenticated)
-    {
-    }
-</tr>}
+                @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                {
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>}
+
+                @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                {
+        <a asp-action="Details" asp-route-id="@item.Id">Details |</a>}
+                @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                {
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>}
+            </td>
+        </tr>
+        }
     </tbody>
+
+    @*</tbody>*@
 </table>

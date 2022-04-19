@@ -20,10 +20,6 @@ namespace Rose.Models.Bouquet
         public string Name { get; set; }
         public string Picture { get; set; }
         public string Description { get; set; }
-        public string CategoryName { get; set; }
-        public string FlowerName { get; set; }
-
-        public string Model { get; set; }
         [Required]
         [Range(1, 100)]
         public decimal Price { get; set; }

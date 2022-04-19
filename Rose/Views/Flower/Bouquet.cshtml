@@ -19,8 +19,7 @@
 
     </div>
 </header>
-<h1>Bouquets</h1>
-
+<h1>Bouquet</h1>
 @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
 {
 <p>
@@ -73,10 +72,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
-            <td>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+        <td>
 
-                <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
-            </td>
+            <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+        </td>}
             @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
             {
         <td>
@@ -85,11 +86,12 @@
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         </td>
-}
-            @if (this.User.Identity.IsAuthenticated)
-            {
-            }
-        </tr>
-        }
-            </tbody>
-        </table>
+} @*@if (this.User.Identity.IsAuthenticated)
+        {
+    <td>
+
+        <a asp-action="Create" asp-controller="Order" asp-route-id="@item.Id">Order</a>
+    </td>}*@
+        </tr>}
+    </tbody>
+</table>

@@ -102,8 +102,7 @@ namespace Rose.Controllers
                     FirstName = clients.FirstName,
                     LastName = clients.LastName,
                     Email = clients.Email,
-                    PhoneNumber = clients.PhoneNumber,
-                    Address = clients.Address
+                    PhoneNumber = clients.PhoneNumber
                 }).ToList();
             return View(users);
         }

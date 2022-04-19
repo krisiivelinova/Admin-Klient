@@ -44,7 +44,14 @@ namespace Rose.Controllers
             statistic.flowerCount= _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower").Count();
             statistic.bouqetCount=_context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Bouquet").Count();
             statistic.orderCount = _context.Orders.Count();
-           
+
+            //all
+           // statistic.totalPrice = _context.Orders.Sum(x=>x.Price*x.Quantity);
+
+            //b
+            statistic.totalPrice = _context.Orders.Where(x=>x.Flower.Category.Name == "Bouquet").Sum(x => x.Price * x.Quantity);
+
+
             // var applicationDbContext = _context.Flowers.Include(f => f.Category).Where(f => f.Category.Name == "Flower");
             return View(statistic);
         }
@@ -128,7 +135,7 @@ namespace Rose.Controllers
             {
                 return NotFound();
             }
-           
+
             var flower = await _context.Flowers.FindAsync(id);
             if (flower == null)
             {
